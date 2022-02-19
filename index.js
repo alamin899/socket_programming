@@ -3,6 +3,8 @@ const app = express();
 const http = require('http');
 const expressServer = http.createServer(app);
 
+const {Server} = require('socket.io');
+const io = new Server(expressServer);
 
 
 /** Start User Connection Disconnect On Socket For Every One */
@@ -92,6 +94,14 @@ sellNsp.on('connection', function (socket) {
 })
 
  */
+
+/** =====================Chatting App Using Socket====================================== */
+io.on('connection', function (socket) {
+    socket.on("msgSend",function (data){
+        io.emit("chatShow",data)
+    })
+})
+
 
 /** after index.js run index.html will execute */
 app.get('/', function (req, resp) {
