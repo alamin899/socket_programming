@@ -19,13 +19,18 @@
 <!--<h1>Now Time Is: <span id="clockTime"></span></h1>-->
 
 <!--Broadcasting data-->
-<h1>This is Broadcasting Data: <span id="brodcasting"></span></h1>
+<!--<h1>This is Broadcasting Data: <span id="brodcasting"></span></h1>-->
 
+<!--Namespace Broadcasting data-->
+<h1>Buy Broadcasting Data: <span id="buyNsp"></span></h1><br>
+<h1>Sell Broadcasting Data: <span id="sellNsp"></span></h1>
 
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    let socket = io();
+    let socket = io(); //default connection
+    let buySocket = io("/buy"); //io() method er betore je url seti hosse namespace
+    let sellSocket = io("/sell"); //io() method er betore je url seti hosse namespace
 
     // socket.on('message', function (msg) {
     //    document.getElementById("textMessage").innerHTML = msg
@@ -46,22 +51,35 @@
      */
 
     /** data sent to server
-    function send() {
+     function send() {
      let name = document.getElementById("name").value;
 
      socket.send(name)
     }
 
-    function sendByCustomEvent() {
+     function sendByCustomEvent() {
      let name = document.getElementById("customName").value;
 
      socket.emit("customEventMessage",name)
     } */
 
-    /** Broadcasting */
-    socket.on("broadCastEvent",function (data){
+    /** Broadcasting
+     socket.on("broadCastEvent",function (data){
         document.getElementById("brodcasting").innerHTML = ""
         document.getElementById("brodcasting").innerHTML = data
+    });
+     */
+
+
+    /** namespace broadcasting */
+    buySocket.on("buyNspEvent", function (data) {
+        document.getElementById("buyNsp").innerHTML = ""
+        document.getElementById("buyNsp").innerHTML = data
+    });
+
+    sellSocket.on("sellNspEvent", function (data) {
+        document.getElementById("sellNsp").innerHTML = ""
+        document.getElementById("sellNsp").innerHTML = data
     });
 
 </script>

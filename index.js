@@ -7,7 +7,7 @@ const {Server} = require('socket.io');
 const io = new Server(expressServer);
 
 
-/** Start User Connection Disconnect On Socket */
+/** Start User Connection Disconnect On Socket For Every One */
 io.on('connection', function (socket) {
     console.log("New User Connected");
 
@@ -50,30 +50,44 @@ io.on('connection', function (socket) {
     /**============================Get data from client side using event================================================== */
 
     /**
-    socket.on('message', function (msg) {
+     socket.on('message', function (msg) {
         console.log(msg)
     });
 
-    //custom event
-    socket.on('customEventMessage', function (msg) {
+     //custom event
+     socket.on('customEventMessage', function (msg) {
         console.log(msg)
     });
      */
 
 
     /** ====================================Socket Broadcasting Server to client ======================================= */
-
+    /**
      io.sockets.emit("broadCastEvent","Hello! From Broadcasting")
+     */
 
 
-
-     /**============================Disconnect User================================================== */
+    /**============================Disconnect User================================================== */
 
     socket.on('disconnect', function () {
         console.log("User Disconnected");
     });
 
 });
+/** End User Connection Disconnect On Socket For Every One */
+
+
+/** =======================Namespace Broadcasting Server to client(connection er jonno alada alada group) ======================================= */
+
+let buyNsp = io.of("/buy")  //create namespace
+buyNsp.on('connection', function (socket) {
+    buyNsp.emit("buyNspEvent", "Hello! From Buy Namespace")
+})
+
+let sellNsp = io.of("/sell")  //create namespace
+sellNsp.on('connection', function (socket) {
+    sellNsp.emit("sellNspEvent", "Hello! From Sell Namespace")
+})
 
 
 /** after index.js run index.html will execute */

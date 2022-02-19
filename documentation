@@ -140,3 +140,41 @@ client(index.html) site theke data pabo amra :
 socket.on("eventName",function(data){
 document.write(data)
 })
+
+
+==============================================Socket Namespace Broadcasting ===================================================
+
+#assigning different endpoints or paths
+#minimize number of TCP (connection) //group wise howate amader connection kome astese
+#separation between communication channels
+#namespace creation on serverside
+
+server(index.js) file a amra:
+------------------------------
+
+let buyNsp = io.of("/buy")  //create namespace
+buyNsp.on('connection', function (socket) {
+    buyNsp.emit("buyNspEvent", "Hello! From Buy Namespace")
+})
+
+ let sellNsp = io.of("/sell")  //create namespace
+ sellNsp.on('connection', function (socket) {
+     sellNsp.emit("sellNspEvent", "Hello! From Sell Namespace")
+ })
+
+
+client(index.html) file a amra :
+---------------------------------
+
+ let buySocket = io("/buy"); //io() method er betore je url seti hosse namespace ke point korbe
+ let sellSocket = io("/sell"); //io() method er betore je url seti hosse namespace ke point korbe
+
+    buySocket.on("buyNspEvent", function (data) {
+        document.getElementById("buyNsp").innerHTML = ""
+        document.getElementById("buyNsp").innerHTML = data
+    });
+
+    sellSocket.on("sellNspEvent", function (data) {
+        document.getElementById("sellNsp").innerHTML = ""
+        document.getElementById("sellNsp").innerHTML = data
+    });
