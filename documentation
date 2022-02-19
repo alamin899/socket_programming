@@ -1,0 +1,120 @@
+socket create (dependancy:node js install)
+1.create a folder
+2.create package.json using command(npm init --y)
+3.express js install using(npm install express)
+4.socket.io er server side dependency install using (npm install socket.io)
+
+5. package.json a jehetu main file hosse index.js so amra manually index.js file create korbo amader folder a.
+
+6.index.js hosse amader server side er jonno file ,amader client side er jonno index.html lagbe so amra create korbo index.html
+
+7. ekhon amara index.js er server create korbo.
+-expresss js er module ke require kore amra express namer variable a rakhbo.
+- express module ke call kore amra app variable er modde rakhbo.
+-http module ke call korbo then http varialbe a rakhbo then http theke createServer(app) method ke call kore app means express js ke pathiye diye express js er server create korbo
+
+8.ekhon express server ke amra run korbo expressServer.listen(3000) .3000 hosse port amra je port dibo sei port a run korbe
+
+9.ekhon amra express theke get method er moddome url dibo abong call back 2 ti method ney request and response .response a amra index file ba jekono file bole dite parei like.. response.sendFile(__dirname+"/index.html")
+==  __dirname mane server chalu hole root directory bujbe
+
+10. then amra run korbo command(node index.js)
+-then amra browser a localhost:3000 a hit korle index.html file ti dekhte parbo
+
+==========Socket Configure In Index.js(server) and index.html(client)===================
+
+1.server side socket configure
+index.js a socket configure korte prothome amra socket.io ke require korbo
+--  const  {Server} = require(socket.io) //{Server} property import korlam ata akti class
+-- Server Class ar object create korbo
+-- const io = new Server(expressServer) //Server class a construct  a expressServer diye dilam
+
+2.client server a socket configure
+-- script a amra src a linkup kore dite hobe
+eti amra note module er ta linkup korbo
+<script src="socket.io/socket.io.js"></script>
+<script>
+ let socket = io();
+</script>
+
+=================Socket Event ===================================
+1.server side event(there is some fixed event this will not change)
+ predefine event:
+    Connect
+    Message
+    Disconnect,
+    Reconnect
+    Ping,Join
+    Leave
+
+2.client side event
+predefine event:
+    Connect
+    Connect_error
+    Connect_timeout
+    Reconnect
+
+==============Server to Client Data Transfer====================================
+
+1.amra client connected holei sei block er bitore aibabe server theke client a data pass korte pari .
+
+    setTimeout(function (){
+            socket.send("This Is Test Message From (Server ---> Client)")
+        },5000)
+
+2. client a data dorar jonno message event use korte pari .index.html er scrip a aibabe message event er maddome dorte pari data
+
+     socket.on('message', function (msg) {
+           document.write(msg)
+        });
+
+
+3.Server to Client Data Transfer Continuously
+
+    setInterval(function (){
+            var d = new Date();
+            var s = d.getSeconds();
+            var m = d.getMinutes();
+            var h = d.getHours();
+            var time = `${h}:${m}:${s}`
+            socket.send(time)
+        },500)
+
+
+=====================Server(index.js) to Client(index.html) Data Transfer Custom Event =======================
+
+ socket.send(time) //ati hose predefine send event
+
+ socket.emit("clock",time)  //custom event  socket theke emit a 2 ti parameter jabe event name and value
+
+
+===================Client(index.html) side to server(index.js) site Data Transfer===================================
+
+#amra index.html theke input field niye send button a click korle amader akta onclick a function run korte hobe
+
+    //this is for predefined send method
+    function send() {
+         let name = document.getElementById("name").value;
+
+         socket.send(name)
+        }
+
+    //this is for custom event emit method which is take custom event name
+    function sendByCustomEvent() {
+     let name = document.getElementById("customName").value;
+
+     socket.emit("customEventMessage",name)
+    }
+
+
+#amra server(index.js) a dorbo data:
+
+        //predefine message event
+         socket.on('message', function (msg) {
+                console.log(msg)
+            });
+
+        //custom event
+        socket.on('customEventMessage', function (msg) {
+            console.log(msg)
+        });
