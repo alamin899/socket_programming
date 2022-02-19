@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <title>My Socket IO Project</title>
+</head>
+<body>
+<h1  id="textMessage">Hello ! Server Is Running</h1><br>
+<h1>Now Time Is: <span id="clockTime"></span></h1>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io();
+
+    // socket.on('message', function (msg) {
+    //    document.getElementById("textMessage").innerHTML = msg
+    // });
+
+    /** Predefine Event Message
+    socket.on('message', function (msg) {
+        document.getElementById("clockTime").innerHTML = ""
+        document.getElementById("clockTime").innerHTML = msg
+    });
+     */
+
+    /** Custom Event clock */
+    socket.on('clock', function (msg) {
+        document.getElementById("clockTime").innerHTML = ""
+        document.getElementById("clockTime").innerHTML = msg
+    });
+
+
+</script>
+
+</body>
+</html>
