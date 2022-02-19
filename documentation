@@ -21,7 +21,7 @@ socket create (dependancy:node js install)
 10. then amra run korbo command(node index.js)
 -then amra browser a localhost:3000 a hit korle index.html file ti dekhte parbo
 
-==========Socket Configure In Index.js(server) and index.html(client)===================
+===============================Socket Configure In Index.js(server) and index.html(client)=============================================
 
 1.server side socket configure
 index.js a socket configure korte prothome amra socket.io ke require korbo
@@ -37,7 +37,8 @@ eti amra note module er ta linkup korbo
  let socket = io();
 </script>
 
-=================Socket Event ===================================
+==========================================Socket Event ========================================================================================
+
 1.server side event(there is some fixed event this will not change)
  predefine event:
     Connect
@@ -54,7 +55,7 @@ predefine event:
     Connect_timeout
     Reconnect
 
-==============Server to Client Data Transfer====================================
+===================================Server to Client Data Transfer==================================================
 
 1.amra client connected holei sei block er bitore aibabe server theke client a data pass korte pari .
 
@@ -81,14 +82,14 @@ predefine event:
         },500)
 
 
-=====================Server(index.js) to Client(index.html) Data Transfer Custom Event =======================
+=================================Server(index.js) to Client(index.html) Data Transfer Custom Event ================================
 
- socket.send(time) //ati hose predefine send event
+ socket.send(time)                  //ati hose predefine send event
 
- socket.emit("clock",time)  //custom event  socket theke emit a 2 ti parameter jabe event name and value
+ socket.emit("clock",time)            //custom event  socket theke emit a 2 ti parameter jabe event name and value
 
 
-===================Client(index.html) side to server(index.js) site Data Transfer===================================
+=================================Client(index.html) side to server(index.js) site Data Transfer====================
 
 #amra index.html theke input field niye send button a click korle amader akta onclick a function run korte hobe
 
@@ -118,3 +119,24 @@ predefine event:
         socket.on('customEventMessage', function (msg) {
             console.log(msg)
         });
+
+==============================================Socket Broadcasting ===================================================
+
+#broadcast hosse kono akta data ba message ke joto connected user or client achay tader modde data pathano ba sompochar kora
+#broadcast can be done at multiple level(ex:tv sompochar hote pare asiar modde,hote pare word wide,hote pare city wise)
+#broadcasting akta specific ID diye hote pare
+#broadcasting akta specific rolewise hote pare
+#broadcasting akta specific namespace wise hote pare
+#Broadcast event sob client er modde pathate chaile we can use the io.sockets.emit method
+
+server(index.js) site theke amra data pathate pari :
+---------------------------------------------------
+io.on('connection', function (socket) {
+    io.sockets.emit("eventName","data amra ja pathate chai")
+}
+
+client(index.html) site theke data pabo amra :
+---------------------------------------------------
+socket.on("eventName",function(data){
+document.write(data)
+})

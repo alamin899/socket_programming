@@ -49,6 +49,7 @@ io.on('connection', function (socket) {
 
     /**============================Get data from client side using event================================================== */
 
+    /**
     socket.on('message', function (msg) {
         console.log(msg)
     });
@@ -57,9 +58,16 @@ io.on('connection', function (socket) {
     socket.on('customEventMessage', function (msg) {
         console.log(msg)
     });
+     */
 
 
-    /**============================Disconnect User================================================== */
+    /** ====================================Socket Broadcasting Server to client ======================================= */
+
+     io.sockets.emit("broadCastEvent","Hello! From Broadcasting")
+
+
+
+     /**============================Disconnect User================================================== */
 
     socket.on('disconnect', function () {
         console.log("User Disconnected");

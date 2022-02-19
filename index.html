@@ -5,14 +5,23 @@
 <body>
 
 <!-- send data client to server -->
+
+<!--
 <input type="text" id="name">
 <button onclick="send()" id="send">Send</button><br>
 <input type="text" id="customName"><button onclick="sendByCustomEvent()" id="customsend">Custom Send</button>
+-->
+
 <!--End send data client to server -->
 
 
 <!--<h1  id="textMessage">Hello ! Server Is Running</h1><br>-->
 <!--<h1>Now Time Is: <span id="clockTime"></span></h1>-->
+
+<!--Broadcasting data-->
+<h1>This is Broadcasting Data: <span id="brodcasting"></span></h1>
+
+
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -36,7 +45,7 @@
     });
      */
 
-    /** data sent to server */
+    /** data sent to server
     function send() {
      let name = document.getElementById("name").value;
 
@@ -47,8 +56,13 @@
      let name = document.getElementById("customName").value;
 
      socket.emit("customEventMessage",name)
-    }
-    /**End data sent to server */
+    } */
+
+    /** Broadcasting */
+    socket.on("broadCastEvent",function (data){
+        document.getElementById("brodcasting").innerHTML = ""
+        document.getElementById("brodcasting").innerHTML = data
+    });
 
 </script>
 
