@@ -11,14 +11,18 @@ const io = new Server(expressServer);
 io.on('connection', function (socket) {
     console.log("New User Connected");
 
-    /** After 5 second later event fire
+    /**============================After 5 second later event fire================================================== */
+
+    /**
      setTimeout(function (){
         socket.send("This Is Test Message From (Server ---> Client)")
         console.log("send data")
     },5000)
      */
 
-    /** Predefine Event Send
+    /**============================Predefine Event Send================================================== */
+
+    /**
      setInterval(function (){
         var d = new Date();
         var s = d.getSeconds();
@@ -29,8 +33,10 @@ io.on('connection', function (socket) {
     },1000)
      */
 
-    /** Custom Event clock where in emit method */
-    setInterval(function () {
+    /**============================Custom Event clock where in emit method================================================== */
+
+    /**
+     setInterval(function () {
         var d = new Date();
         var s = d.getSeconds();
         var m = d.getMinutes();
@@ -38,13 +44,28 @@ io.on('connection', function (socket) {
         var time = `${h}:${m}:${s}`
         socket.emit("clock", time)  //custom event  socket theke emit a 2 ti parameter jabe event name and value
     }, 1000)
+     */
+
+
+    /**============================Get data from client side using event================================================== */
+
+    socket.on('message', function (msg) {
+        console.log(msg)
+    });
+
+    //custom event
+    socket.on('customEventMessage', function (msg) {
+        console.log(msg)
+    });
+
+
+    /**============================Disconnect User================================================== */
 
     socket.on('disconnect', function () {
         console.log("User Disconnected");
     });
 
 });
-/** End User Connection Disconnect On Socket */
 
 
 /** after index.js run index.html will execute */

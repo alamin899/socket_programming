@@ -3,8 +3,16 @@
     <title>My Socket IO Project</title>
 </head>
 <body>
-<h1  id="textMessage">Hello ! Server Is Running</h1><br>
-<h1>Now Time Is: <span id="clockTime"></span></h1>
+
+<!-- send data client to server -->
+<input type="text" id="name">
+<button onclick="send()" id="send">Send</button><br>
+<input type="text" id="customName"><button onclick="sendByCustomEvent()" id="customsend">Custom Send</button>
+<!--End send data client to server -->
+
+
+<!--<h1  id="textMessage">Hello ! Server Is Running</h1><br>-->
+<!--<h1>Now Time Is: <span id="clockTime"></span></h1>-->
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -15,18 +23,32 @@
     // });
 
     /** Predefine Event Message
-    socket.on('message', function (msg) {
+     socket.on('message', function (msg) {
         document.getElementById("clockTime").innerHTML = ""
         document.getElementById("clockTime").innerHTML = msg
     });
      */
 
-    /** Custom Event clock */
-    socket.on('clock', function (msg) {
+    /** Custom Event clock
+     socket.on('clock', function (msg) {
         document.getElementById("clockTime").innerHTML = ""
         document.getElementById("clockTime").innerHTML = msg
     });
+     */
 
+    /** data sent to server */
+    function send() {
+     let name = document.getElementById("name").value;
+
+     socket.send(name)
+    }
+
+    function sendByCustomEvent() {
+     let name = document.getElementById("customName").value;
+
+     socket.emit("customEventMessage",name)
+    }
+    /**End data sent to server */
 
 </script>
 
