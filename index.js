@@ -3,11 +3,12 @@ const app = express();
 const http = require('http');
 const expressServer = http.createServer(app);
 
-const {Server} = require('socket.io');
-const io = new Server(expressServer);
 
 
 /** Start User Connection Disconnect On Socket For Every One */
+
+/**
+
 io.on('connection', function (socket) {
     console.log("New User Connected");
 
@@ -69,16 +70,17 @@ io.on('connection', function (socket) {
 
     /**============================Disconnect User================================================== */
 
-    socket.on('disconnect', function () {
-        console.log("User Disconnected");
-    });
+    // socket.on('disconnect', function () {
+    //     console.log("User Disconnected");
+    // });
 
-});
+// });
 /** End User Connection Disconnect On Socket For Every One */
 
 
 /** =======================Namespace Broadcasting Server to client(connection er jonno alada alada group) ======================================= */
 
+/**
 let buyNsp = io.of("/buy")  //create namespace
 buyNsp.on('connection', function (socket) {
     buyNsp.emit("buyNspEvent", "Hello! From Buy Namespace")
@@ -89,6 +91,7 @@ sellNsp.on('connection', function (socket) {
     sellNsp.emit("sellNspEvent", "Hello! From Sell Namespace")
 })
 
+ */
 
 /** after index.js run index.html will execute */
 app.get('/', function (req, resp) {

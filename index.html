@@ -1,10 +1,11 @@
 <html lang="en">
 <head>
-    <title>My Socket IO Project</title>
+<!--    <title>My Socket IO Project</title>-->
+    <title>Socket Combine Chat App</title>
 </head>
 <body>
 
-<!-- send data client to server -->
+<!-- ===============================send data client to server ======================================-->
 
 <!--
 <input type="text" id="name">
@@ -12,45 +13,48 @@
 <input type="text" id="customName"><button onclick="sendByCustomEvent()" id="customsend">Custom Send</button>
 -->
 
-<!--End send data client to server -->
-
+<!-- ====================================================================================================== -->
 
 <!--<h1  id="textMessage">Hello ! Server Is Running</h1><br>-->
 <!--<h1>Now Time Is: <span id="clockTime"></span></h1>-->
 
-<!--Broadcasting data-->
+<!-- ============================Broadcasting data====================================================-->
+
 <!--<h1>This is Broadcasting Data: <span id="brodcasting"></span></h1>-->
 
-<!--Namespace Broadcasting data-->
-<h1>Buy Broadcasting Data: <span id="buyNsp"></span></h1><br>
-<h1>Sell Broadcasting Data: <span id="sellNsp"></span></h1>
+<!-- ============================Namespace Broadcasting data================================================ -->
+
+<!--<h1>Buy Broadcasting Data: <span id="buyNsp"></span></h1><br>-->
+<!--<h1>Sell Broadcasting Data: <span id="sellNsp"></span></h1>-->
+
+
+<!-- ===============================Chat Application Using Socket============================================ -->
+<h1>Hello Chat Application</h1>
+
+
 
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
     let socket = io(); //default connection
-    let buySocket = io("/buy"); //io() method er betore je url seti hosse namespace
-    let sellSocket = io("/sell"); //io() method er betore je url seti hosse namespace
 
-    // socket.on('message', function (msg) {
-    //    document.getElementById("textMessage").innerHTML = msg
-    // });
 
-    /** Predefine Event Message
+    /**============================== Predefine Event Message===============================================
      socket.on('message', function (msg) {
         document.getElementById("clockTime").innerHTML = ""
         document.getElementById("clockTime").innerHTML = msg
     });
      */
 
-    /** Custom Event clock
+    /**========================= Custom Event clock===========================================================
      socket.on('clock', function (msg) {
         document.getElementById("clockTime").innerHTML = ""
         document.getElementById("clockTime").innerHTML = msg
     });
      */
 
-    /** data sent to server
+    /**========================== data sent to server===========================================================
+
      function send() {
      let name = document.getElementById("name").value;
 
@@ -63,7 +67,8 @@
      socket.emit("customEventMessage",name)
     } */
 
-    /** Broadcasting
+
+    /**=================================== Broadcasting=========================================================
      socket.on("broadCastEvent",function (data){
         document.getElementById("brodcasting").innerHTML = ""
         document.getElementById("brodcasting").innerHTML = data
@@ -71,7 +76,11 @@
      */
 
 
-    /** namespace broadcasting */
+    /**======================namespace broadcasting==================================================
+
+     let buySocket = io("/buy"); //io() method er betore je url seti hosse namespace
+     let sellSocket = io("/sell"); //io() method er betore je url seti hosse namespace
+
     buySocket.on("buyNspEvent", function (data) {
         document.getElementById("buyNsp").innerHTML = ""
         document.getElementById("buyNsp").innerHTML = data
@@ -81,6 +90,11 @@
         document.getElementById("sellNsp").innerHTML = ""
         document.getElementById("sellNsp").innerHTML = data
     });
+     */
+
+
+    /**============================== socket combine group chat application =================================*/
+
 
 </script>
 
